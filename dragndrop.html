@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+	<!-- drag and drop demo -->
+	<body>
+		<canvas id="myCanvas" width="800" height="480" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousedown", clicked);
+			canvas.addEventListener("mousemove", moved);
+			canvas.addEventListener("mouseup", released);
+			
+			var isclicked = 0;
+			
+			var square = new Object();
+			square.color = "blue";
+			square.x = 100;
+			square.y = 100;
+			square.w = 50;
+			square.h = 50;
+			
+			var square2 = new Object();
+			square2.color = "green";
+			square2.x = 200;
+			square2.y = 200;
+			square2.w = 50;
+			square2.h = 50;
+			
+			var offX = 0;
+			var offY = 0;
+			
+			function draw(){
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.fillStyle = square2.color;
+				ctx.fillRect(square2.x,square2.y,square2.w,square2.h);
+				ctx.fillStyle = square.color;
+				ctx.fillRect(square.x,square.y,square.w,square.h);
+			}
+			
+			
+			function game(){
+			}
+			
+			function clicked(e){
+				var x = e.offsetX;
+				var y = e.offsetY;
+				if(x >= square.x && x <= square.x + square.w &&
+					y >= square.y && y <= square.y + square.h){
+					isclicked = 1;
+					offX = x - square.x;
+					offY = y - square.y;
+				} else if(x >= square2.x && x <= square2.x + square2.w &&
+					y >= square2.y && y <= square2.y + square2.h){
+					isclicked = 2;
+					offX = x - square2.x;
+					offY = y - square2.y;
+				}
+			}
+			function moved(e){
+				if(isclicked == 1){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					square.x = x - offX;
+					square.y = y - offY;
+				}
+				if(isclicked == 2){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					square2.x = x - offX;
+					square2.y = y - offY;
+				}
+			}
+			function released(e){
+				var x = e.offsetX;
+				var y = e.offsetY;
+				isclicked = 0;
+			}
+			
+			var drawtimer = setInterval(draw, 1000/30);
+			var gametimer = setInterval(game, 1000/10);
+			
+		</script>
+	</body>
+</html>
