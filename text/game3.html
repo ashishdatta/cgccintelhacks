@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+<p id="x"></p>
+</div>
+<div>
+<p id="y"></p>
+</div>
+
+<div>
+<p id="score"></p>
+</div>
+ 
+<input type="button" id="yesButton" onclick="matchInput(true)" value="Yes"/>
+<input type="button" id="noButton" onclick="matchInput(false)" value="No"/>
+ 
+<script>
+	var fruitName  = ['Apple', 'Banana', 'Coconut', 'Date'];
+	var fruitPic = ['apple.png', 'banana.png', 'coconut.png', 'date.png'];
+	
+		
+	var counter = 0;
+	var match;
+	
+	game();
+	
+	function game() {
+		var fruitNum = Math.floor((Math.random()*4));
+		var picNum = Math.floor((Math.random()*4));
+		
+		match = false;
+		if (fruitNum === picNum) match = true;
+		
+		document.getElementById('x').innerHTML = 'Is it '+fruitName[fruitNum]+'?';
+		document.getElementById('y').innerHTML = '<img src="' + fruitPic[picNum] + '"/>';
+		document.getElementById("score").innerHTML = 'Score: ' + counter;
+		
+		/*
+		document.getElementById('x').innerHTML = 'Is it '+fruitName[fruitNum]+'?';
+		document.getElementById('y').innerHTML = '<img src="' + fruitPic[picNum] + '"/>';
+		document.getElementById("score").innerHTML = 'Score: ' + counter;
+		
+		*/
+	}	
+	
+	function matchInput(input) {
+		if (input === match) {
+			alert("Correct." );
+			counter++;			
+			game();
+		} else {
+			counter--;
+			alert("Incorrect. Try again");
+		}
+		document.getElementById("score").innerHTML = 'Score: ' + counter;
+	}
+	
+	
+	// check what button the user clicks.
+	// compare it to the value of match.
+	// if they are same, user is correct.
+	// else wrong. 
+		
+	
+</script>
+
+</body>
+</html>

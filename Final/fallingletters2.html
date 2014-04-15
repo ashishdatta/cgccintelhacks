@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+	<!-- multiple screens demo -->
+	<body>
+		<canvas id="myCanvas" width="800" height="450" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousedown", clicked);
+
+			var curscreen = "menu";
+
+			var menubtn = new Image();
+			menubtn.src = "homescreensm.png";
+			var gamebtn = new Image();
+			gamebtn.src = "mockup.png";
+			var heroImage = new Image();
+			heroImage.src="spriteheronew.png";
+			var ltrChImage = new Image();
+			ltrChImage.src="a.png"
+			var hat = new Image();
+			hat.src = "hat.png"; //1
+			var cat = new Image();
+			cat.src = "cat.png"; // 2
+			var fan = new Image();
+			fan.src = "fan.png"; // 3
+			var tent = new Image();
+			tent.src = "tent.png"; //4
+			var chat = new Image();
+			chat.src = "chat.png"; //5
+			var cent = new Image();
+			cent.src = "cent.png"; //6
+			var hen = new Image();
+			hen.src = "hen.png"; //7
+			var can = new Image();
+			can.src = "can.png"; //8
+			var ten = new Image();
+			ten.src = "ten.png"; //9
+			var randWord = Math.floor((Math.random()*9)+1);
+			var iter = Math.floor((Math.random()*26));
+			var currentWord = "";
+			var userWord = "";
+			
+							
+			var ltrCh = new Array();
+			image = new Image();
+			image.src = "letters.png";
+			
+			
+			
+			ltrCh[0] = "A";
+			ltrCh[1] = "B";
+			ltrCh[2] = "C";
+			ltrCh[3] = "D";
+			ltrCh[4] = "E";
+			ltrCh[5] = "F";
+			ltrCh[6] = "G";
+			ltrCh[7] = "H";
+			ltrCh[8] = "I";
+			ltrCh[9] = "J";
+			ltrCh[10] = "K";
+			ltrCh[11] = "L";
+			ltrCh[12] = "M";
+			ltrCh[13] = "N";
+			ltrCh[14] = "O";
+			ltrCh[15] = "P";
+			ltrCh[16] = "Q";
+			ltrCh[17] = "R";
+			ltrCh[18] = "S";
+			ltrCh[19] = "T";
+			ltrCh[20] = "U";
+			ltrCh[21] = "V";
+			ltrCh[22] = "W";
+			ltrCh[23] = "X";
+			ltrCh[24] = "Y";
+			ltrCh[25] = "Z";
+
+			
+			
+			var  hero = {
+					speed: 25,
+					x: 375,
+					y: 330
+					};
+			var fall = -120;
+
+		
+		
+			var bufferTime = 500; <!---Time between letters falling--->*/
+			var score = 0;
+
+			var op = 1;
+			
+			var keysDown = {};
+			addEventListener("keydown", function(e){
+			keysDown[e.keyCode]=true;
+			}, false);
+
+			addEventListener("keyup", function(e){
+			delete keysDown[e.keyCode];
+			}, false);
+			
+			var reset = function() {
+						ltrCh.x = randX;
+						ltrCh.y = -125;
+						ltrChImage.x = 0;	
+						ltrChImage.y = -125;
+						fall = Math.floor((Math.random()*100)-800);
+					}
+			var resetPic = function() {
+						randWord = Math.floor((Math.random()*9)+1);
+						}
+
+			var newTile = function() {
+						randX = Math.floor((Math.random()*600)+100);
+						ltrCh.x = randX;
+						ltrCh.y = -125;
+						ltrChImage.x = randX;
+						iter = Math.floor((Math.random()*6)+1);
+						switch(iter)
+						{
+						case 1:
+						iter = 7; //H
+						break;
+						case 2:
+						iter = 0; //A
+						break;
+						case 3:
+						iter = 19; //T
+						break;
+						case 4:
+						iter = 2; //C
+						break;
+						case 5:
+						iter = 5; //F
+						break;
+						case 6:
+						iter = 13; //N
+						break;
+						case 7:
+						iter = 4; // E
+						break;
+						case 8:
+						iter = Math.floor((Math.random()*26));
+						break;
+						
+						}
+					}
+			
+			var newWord = function() {
+						randWord = Math.floor((Math.random()*9)+1);
+						}
+			var randX = Math.floor((Math.random()*800)+1);
+			console.log(randX);
+			
+			function draw(){
+			
+				var menuhalf = (menubtn.width)/2;
+				ctx.globalAlpha = op;
+
+				switch(curscreen){
+					case "menu":
+						ctx.drawImage(menubtn,0,0);
+					break;
+					case "game":
+						
+			ctx.clearRect(0,0,canvas.width,canvas.height);
+			ctx.drawImage(gamebtn,0,0);
+			
+			
+							switch (randWord)
+								{
+								case 2:
+									ctx.drawImage(hat,260,25,300,200);
+									currentWord = "HAT";
+								break;
+								case 3:
+									ctx.drawImage(cat,260,25,300,250);
+									currentWord = "CAT";
+								break;
+								case 4:
+									ctx.drawImage(fan,260,25,300,250);
+									currentWord = "FAN";
+								break;
+								case 5:
+									ctx.drawImage(can,290,25,150,250);
+									currentWord = "CAN";
+								break;
+								case 6:
+									ctx.drawImage(ten,260,25,300,250);
+									currentWord = "TEN";
+								break;
+								case 7:
+									ctx.drawImage(tent,260,25,300,250);
+									currentWord = "TENT";
+								break;
+								case 8:
+									ctx.drawImage(hen,260,25,300,250);
+									currentWord = "HEN";
+								break;
+								case 9:
+									ctx.drawImage(cent,260,25,300,250);
+									currentWord = "CENT";
+								break;
+								case 10:
+									ctx.drawImage(chat,260,25,300,250);
+									currentWord = "CHAT";
+								break;
+								
+								}
+			
+							ctx.font = '24pt Courier New';
+							ctx.fillStyle = 'white';
+							ctx.fillText(score, 85, 35 );
+							ctx.fillText(userWord, 15, 78 );
+					    
+									if(fall < bufferTime)
+						{
+
+							fall += 10; <!-- falling tile speed -->
+							ltrCh.y=fall;
+	
+			
+						var randLetX = 120 * (iter);
+						var randLetY = 0;
+						var randLetX2 = 120;	
+						var randLetY2 = 120;
+						
+						ctx.drawImage(image, randLetX, randLetY, randLetX2, randLetY2, randX, fall, 64, 64);
+						
+							if(hero.x <= (randX +50)&&
+								randX <= (hero.x+110)&&
+								hero.y <= (fall +50) &&
+								fall <= (hero.y + 110)){
+						
+							
+							userWord = userWord + ltrCh[iter];
+							console.log(ltrCh[iter]);
+							console.log(iter);
+							console.log(currentWord.substring(0,userWord.length) + " " + userWord)
+							if (currentWord.substring(0,userWord.length) == userWord)
+							{
+								if (currentWord.length == userWord.length)
+								{
+								score = score + 10;
+								newWord();
+								userWord = "";
+								}
+							}
+							else{
+							userWord = "";
+							}
+							reset();
+							newTile();
+							}
+							}
+							
+							
+
+						
+						
+						
+						
+						else{
+							reset();
+							newTile();
+							console.log(iter);
+							
+							};
+						
+						
+						ctx.drawImage(heroImage,hero.x,hero.y, 61,110);
+							if(hero.x <= -25){
+							hero.x = canvas.width;
+							}
+							if(hero.x >= 801){
+							hero.x = -20;
+							}
+							if (37 in keysDown) {
+							//left key
+							hero.x -= hero.speed;
+							}
+							if (39 in keysDown) {
+							//right key
+							hero.x += hero.speed;
+
+							}
+						
+			
+						
+					
+				        
+						
+						/*ctx.drawImage(heroImage,hero.x,hero.y);
+							if(hero.x <= -25){
+							hero.x = canvas.width;
+							}
+							if(hero.x >= 801){
+							hero.x = -20;
+							}
+							if (37 in keysDown) {
+							//left key
+							hero.x -= hero.speed;
+							}
+							if (39 in keysDown) {
+							//right key
+							hero.x += hero.speed;
+
+							}*/
+						//ctx.drawImage(ltrChImage,ltrCh.x,ltrCh.y);
+						
+						//if(hero.x <= (ltrCh.x +100)&& ltrCh.x <= (hero.x+100)&& hero.y <= (ltrCh.y +100)&& ltrCh.y <= (hero.y + 100))
+						//++score;
+						
+						
+						
+					
+					
+					break;
+				}
+				ctx.globalAlpha = 1;
+			}
+
+
+			function game(){
+				
+			}
+			var canhalf = (canvas.width)/2;
+			var menuhalf = (menubtn.width)/2;
+			
+			function clicked(e){
+			console.log(e);
+				var x = e.offsetX;
+				var y = e.offsetY;
+
+				switch(curscreen){
+					case "menu":
+						if(x >= (canhalf - 134) && x <= (canhalf + 134) && y >= 24 && y <= 74){
+							curscreen = "game";
+						}
+					break;
+					case "game":
+						if(x >= 0 && x <= 50 && y >= 400 && y <= 450){
+							curscreen = "menu";
+							score = 0;
+							fall = -125;
+							resetPic();
+						}
+					break;
+				}
+			}
+
+			var drawtimer = setInterval(draw, 1000/30);
+			var gametimer = setInterval(game, 1000/10);
+
+		</script>
+	</body>
+</html>

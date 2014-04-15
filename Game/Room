@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+	<!-- multiple screens demo -->
+	<body>
+		<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+
+			var bg = new Image();
+			bg.src = "Bedroom.png"
+
+			function draw(){
+				ctx.drawImage(bg,0,0,canvas.width,canvas.height);
+			}
+			setInterval(draw, 1000/30);
+
+		</script>
+	</body>
+</html>

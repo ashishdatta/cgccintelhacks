@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+	<!-- multiple screens demo -->
+	<body>
+		<canvas id="myCanvas" width="800" height="480" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousedown", clicked);
+
+			var curscreen = "menu";
+
+			var menubtn = new Image();
+			menubtn.src = "menubutton.jpg";
+			var gamebtn = new Image();
+			gamebtn.src = "gamebutton.jpg";
+
+			var op = 1;
+
+			function draw(){
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.fillText("THIS IS TEXT",100,100);
+				ctx.globalAlpha = op;
+				switch(curscreen){
+					case "menu":
+						ctx.drawImage(menubtn,20,20);
+					break;
+					case "game":
+						ctx.drawImage(gamebtn,200,200);
+					break;
+				}
+				ctx.globalAlpha = 1;
+			}
+
+
+			function game(){
+				op-= 0.1;
+				if(op <= 0){
+					op = 1;
+				}
+			}
+
+			function clicked(e){
+			console.log(e);
+				var x = e.offsetX;
+				var y = e.offsetY;
+
+				switch(curscreen){
+					case "menu":
+						if(x >= 20 && x <= 300 && y >= 20 && y <= 50){
+							curscreen = "game";
+						}
+					break;
+					case "game":
+						if(x >= 200 && x <= 200 + gamebtn.width && y >= 200 && y <= 200 + gamebtn.height){
+							curscreen = "menu";
+						}
+					break;
+				}
+			}
+
+			var drawtimer = setInterval(draw, 1000/30);
+			var gametimer = setInterval(game, 1000/10);
+
+		</script>
+	</body>
+</html>

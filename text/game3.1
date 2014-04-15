@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+<p id="x"></p>
+</div>
+<div>
+<p id="y"></p>
+</div>
+
+<div>
+<p id="score"></p>
+</div>
+ 
+<input type="button" id="yesButton" onclick="matchInput(true)" value="Yes"/>
+<input type="button" id="noButton" onclick="matchInput(false)" value="No"/>
+ 
+<script>
+	var fruitName  = ['Apple','Apricot', 'Banana', 'Black Cherries', 'Black Grapes', 'BlueBerry', 'Carambola', 'Coconut', 'cranberry', 'Date', 'dragonfruit', 'fig', 'grapefruit','green grapes', 'guava', 'kiwi', 'lemon', 'lychee', 'mandarain', 'mango', 'melon', 'orange', 'payapa', 'peach', 'pineapple', 'plum', 'pomegrante', 'pomelo', 'raspberry', 'red cherries', 'strawberry', 'watermelon', 'white grapefruit' ];
+	var fruitPic = ['apple.png', 'apricot.png', 'banana.png', 'black cherries.png', 'black grapes.png', 'blueberry.png', 'carambola.png', 'coconut.png', 'cranberry.png', 'date.png', 'dragonfruit.png','fig.png','grapefruit.png','green grapes.png','guava.png', 'kiwi.png', 'lemon.png','lychee.png', 'mandarain.png', 'mango.png', 'melon.png', 'orange.png', 'payapa.png', 'peach.png', 'pineapple.png', 'plum.png', 'pomegrante.png', 'pomelo.png', 'raspberry.png', 'red cherries.png', 'strawberry.png', 'watermelon.png', 'white grapefruit.png'];	
+		
+	var counter = 0;
+	var match;
+	var yes = true;
+	
+	game();
+	
+	function game() {
+		var fruitNum = Math.floor((Math.random()*35));
+		var picNum = Math.floor((Math.random()*35));
+		
+		match = false;
+		if (fruitNum === picNum) match = true;
+		
+		document.getElementById('x').innerHTML = 'Is it '+fruitName[fruitNum]+'?';
+		document.getElementById('y').innerHTML = '<img src="' + fruitPic[picNum] + '"/>';
+		document.getElementById("score").innerHTML = 'Score: ' + counter;
+	}	
+	
+	function matchInput(input) {
+		if (input === match) {
+			alert("Correct." );
+			counter++;			
+			game();
+		} else {
+			counter--;
+			alert("Incorrect. Try again");
+		}
+		document.getElementById("score").innerHTML = 'Score: ' + counter;
+		
+		if (counter ===15){
+		alert("Congratulations. Would you like to play again?")
+		if (confirm(){
+		}
+	}
+	
+	
+	// check what button the user clicks.
+	// compare it to the value of match.
+	// if they are same, user is correct.
+	// else wrong. 
+		
+	
+</script>
+
+</body>
+</html>

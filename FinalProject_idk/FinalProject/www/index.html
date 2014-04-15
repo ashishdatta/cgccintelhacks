@@ -1,0 +1,738 @@
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+<head>
+<style>
+#mycanvas {background-image:url('bground.jpg');}
+
+</style>
+</head>
+<body>
+	<h1 style="font-family:Kristen ITC; margin-left:300px;font-size:40px;">Flash Learn</h1>
+	<canvas id="mycanvas" width="850" height="600" style="border:1px solid black"></canvas>
+	<script>
+		var canvas = document.getElementById("mycanvas");
+		var ctx = canvas.getContext('2d');
+		canvas.addEventListener("mousedown", clicked);
+		
+		
+		var curscreen = "menu";
+		
+		var kidbtn = new Image();
+		kidbtn.src = "kid button.jpg";
+        
+        kidbtn.onload = function (){
+			ctx.drawImage(kidbtn,150,121.45);
+		}
+        
+        
+		var akbtn = new Image();
+		akbtn.src = "adultkid button.jpg";
+		var fruAveg = new Image();
+		fruAveg.src = "fruitandvegetable.png";
+		var animals = new Image();
+		animals.src = "animals.png";
+		var shapes = new Image();
+		shapes.src = "shapes.png";
+						/*var apple = new Image();
+						apple.src = "apple.png";
+						var banana = new Image();
+						banana.src = "banana.png";
+						var carrot = new Image();
+						carrot.src = "carrot.png";
+						var strawberry = new Image;
+						strawberry.src = "strawberry.png";
+						var broccoli = new Image();
+						broccoli.src = "broccoli.png";*/
+			//**********************************Veggie Array*****************************************//
+		var veggieArray = new Array();
+			veggieArray[0] = new Image();
+			veggieArray[0].src ='apple.png';
+			veggieArray[1] = new Image();
+			veggieArray[1].src ='banana.png';
+			veggieArray[2] = new Image();
+			veggieArray[2].src ='carrot.png';
+			veggieArray[3] = new Image();
+			veggieArray[3].src = 'strawberry.png';
+			veggieArray[4] = new Image();
+			veggieArray[4].src = 'broccoli.png';
+			//******************************************Veggie Guess Buttons*************************//
+			/*
+            var veggieGuessArray = new Array();
+			veggieGuessArray[0] = new Image();
+			veggieGuessArray[0].src ='appleguess.png';
+			veggieGuessArray[1] = new Image();
+			veggieGuessArray[1].src ='bananaguess.png';
+			veggieGuessArray[2] = new Image();
+			veggieGuessArray[2].src ='carrotguess.png';
+			veggieGuessArray[3] = new Image();
+			veggieGuessArray[3].src = 'strawberryguess.png';
+			veggieGuessArray[4] = new Image();
+			veggieGuessArray[4].src = 'broccoliguess.png';
+            */
+        
+            var fruitsNVeggies = [ "appleguess.png", "bananaguess.png", "carrotguess.png", "strawberryguess.png", "broccoliguess.png" ];
+            var veggieGuessArray = new Array();
+            for (var i = 0; i < 5; i++) {        
+                var index = Math.floor((Math.random() * 5));
+                veggieGuessArray[i] = new Image();
+                veggieGuessArray[i].src = fruitsNVeggies[i];
+            }    
+        
+        /*
+        
+        var fruitsNVeggies = [ "", "", "", "", "" ];
+        var veggieGuessArray = new Array();
+        for (var i = 0; i < 4; i++) {        
+        var index = Math.floor((Math.random() * 5));
+        veggieGuessArray[i] = new Image();
+        veggieGuessArray[i].src = fruitsNVeggies[i];
+        }
+        
+        */
+        
+			//******************************Shape Array*************************************//
+		var shapeArray = new Array();
+			shapeArray[0] = new Image();
+			shapeArray[0].src = 'star.png';
+			shapeArray[1] = new Image();
+			shapeArray[1].src = 'triangle.png';
+			shapeArray[2] = new Image();
+			shapeArray[2].src = 'square.png';
+			shapeArray[3] = new Image();
+			shapeArray[3].src = 'circle.png';
+			shapeArray[4] = new Image();
+			shapeArray[4].src = 'diamond.png';
+			//**********************************Shape Guess Buttons*************************//
+		var shapeGuessArray = new Array();
+			shapeGuessArray[0] = new Image();
+			shapeGuessArray[0].src ='starguess.png';
+			shapeGuessArray[1] = new Image();
+			shapeGuessArray[1].src ='triangleguess.png';
+			shapeGuessArray[2] = new Image();
+			shapeGuessArray[2].src ='squareguess.png';
+			shapeGuessArray[3] = new Image();
+			shapeGuessArray[3].src = 'circleguess.png';
+			shapeGuessArray[4] = new Image();
+			shapeGuessArray[4].src = 'diamondguess.png';
+			//****************************************Animal Array *******************************//
+		var animalArray = new Array();
+			animalArray[0] = new Image();
+			animalArray[0].src = 'cat.png';
+			animalArray[1] = new Image();
+			animalArray[1].src = 'dog.png';
+			animalArray[2] = new Image();
+			animalArray[2].src = 'giraffe.png';
+			animalArray[3] = new Image();
+			animalArray[3].src = 'bird.png';
+			animalArray[4] = new Image();
+			animalArray[4].src = 'zebra.png';
+		//******************************************Animal Guess Buttons*************************//
+		var animalGuessArray = new Array();
+			animalGuessArray[0] = new Image();
+			animalGuessArray[0].src ='catguess.png';
+			animalGuessArray[1] = new Image();
+			animalGuessArray[1].src ='dogguess.png';
+			animalGuessArray[2] = new Image();
+			animalGuessArray[2].src ='giraffeguess.png';
+			animalGuessArray[3] = new Image();
+			animalGuessArray[3].src = 'birdguess.png';
+			animalGuessArray[4] = new Image();
+			animalGuessArray[4].src = 'zebraguess.png';
+			
+		/* background image 
+		var bkgrnd = new Image();
+		bkgrnd.src = "bground";
+		*/
+	//***************************************Controls Displayed screen************************************//
+	function draw() {
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+		switch(curscreen){
+			case "menu":
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("Who will be interacting today?",20,50);
+					ctx.drawImage(kidbtn,150,121.45);
+					ctx.drawImage(akbtn,470,100);
+			break;
+			case "kidscreen":
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("Pick a Theme!",20,50);
+					ctx.drawImage(animals,40,121.45,150,200);
+					ctx.drawImage(shapes,270,121.45,175,200);
+					ctx.drawImage(fruAveg,500,121.45,185,200);
+			break;
+			case "adultscreen":
+					// used to select the adult program ctx.drawImage(banana,20,20);
+			break;
+			//*****************************Animal Choices*****************************//
+			case "animalchoice1":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this animal?",20,50);
+					
+							ctx.drawImage(animalArray[0],20,121.45,100,100);
+							ctx.drawImage(animalGuessArray[0],20,400,100,40);
+							ctx.drawImage(animalGuessArray[1],150,400,100,40);
+							ctx.drawImage(animalGuessArray[2],260,400,100,40);
+							ctx.drawImage(animalGuessArray[3],370,400,100,40);
+							ctx.drawImage(animalGuessArray[4],480,400,100,40);
+			break;
+			case "animalchoice2":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this animal?",20,50);
+					
+							ctx.drawImage(animalArray[1],20,121.45,100,100);
+							ctx.drawImage(animalGuessArray[0],20,400,100,40);
+							ctx.drawImage(animalGuessArray[1],150,400,100,40);
+							ctx.drawImage(animalGuessArray[2],260,400,100,40);
+							ctx.drawImage(animalGuessArray[3],370,400,100,40);
+							ctx.drawImage(animalGuessArray[4],480,400,100,40);
+			break;
+			case "animalchoice3":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this animal?",20,50);
+					
+							ctx.drawImage(animalArray[2],20,121.45,100,100);
+							ctx.drawImage(animalGuessArray[0],20,400,100,40);
+							ctx.drawImage(animalGuessArray[1],150,400,100,40);
+							ctx.drawImage(animalGuessArray[2],260,400,100,40);
+							ctx.drawImage(animalGuessArray[3],370,400,100,40);
+							ctx.drawImage(animalGuessArray[4],480,400,100,40);
+			break;
+			case "animalchoice4":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this animal?",20,50);
+					
+							ctx.drawImage(animalArray[3],20,121.45,100,100);
+							ctx.drawImage(animalGuessArray[0],20,400,100,40);
+							ctx.drawImage(animalGuessArray[1],150,400,100,40);
+							ctx.drawImage(animalGuessArray[2],260,400,100,40);
+							ctx.drawImage(animalGuessArray[3],370,400,100,40);
+							ctx.drawImage(animalGuessArray[4],480,400,100,40);
+			break;
+			case "animalchoice5":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this animal?",20,50);
+					
+							ctx.drawImage(animalArray[4],20,121.45,100,100);
+							ctx.drawImage(animalGuessArray[0],20,400,100,40);
+							ctx.drawImage(animalGuessArray[1],150,400,100,40);
+							ctx.drawImage(animalGuessArray[2],260,400,100,40);
+							ctx.drawImage(animalGuessArray[3],370,400,100,40);
+							ctx.drawImage(animalGuessArray[4],480,400,100,40);
+			break;
+			//*******************************************Shape Choices*****************************//
+			case "shapechoice1":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this shape?",20,50);
+					
+							ctx.drawImage(shapeArray[0],200,121.45,100,100);
+							ctx.drawImage(shapeGuessArray[0],20,400,100,40);
+							ctx.drawImage(shapeGuessArray[1],150,400,100,40);
+							ctx.drawImage(shapeGuessArray[2],260,400,100,40);
+							ctx.drawImage(shapeGuessArray[3],370,400,100,40);
+							ctx.drawImage(shapeGuessArray[4],480,400,100,40);
+			break;
+			case "shapechoice2":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this shape?",20,50);
+					
+							ctx.drawImage(shapeArray[1],200,121.45,100,100);
+							ctx.drawImage(shapeGuessArray[0],20,400,100,40);
+							ctx.drawImage(shapeGuessArray[1],150,400,100,40);
+							ctx.drawImage(shapeGuessArray[2],260,400,100,40);
+							ctx.drawImage(shapeGuessArray[3],370,400,100,40);
+							ctx.drawImage(shapeGuessArray[4],480,400,100,40);
+			break;
+			case "shapechoice3":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this shape?",20,50);
+					
+							ctx.drawImage(shapeArray[2],200,121.45,100,100);
+							ctx.drawImage(shapeGuessArray[0],20,400,100,40);
+							ctx.drawImage(shapeGuessArray[1],150,400,100,40);
+							ctx.drawImage(shapeGuessArray[2],260,400,100,40);
+							ctx.drawImage(shapeGuessArray[3],370,400,100,40);
+							ctx.drawImage(shapeGuessArray[4],480,400,100,40);
+			break;
+			case "shapechoice4":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this shape?",20,50);
+					
+							ctx.drawImage(shapeArray[3],200,121.45,100,100);
+							ctx.drawImage(shapeGuessArray[0],20,400,100,40);
+							ctx.drawImage(shapeGuessArray[1],150,400,100,40);
+							ctx.drawImage(shapeGuessArray[2],260,400,100,40);
+							ctx.drawImage(shapeGuessArray[3],370,400,100,40);
+							ctx.drawImage(shapeGuessArray[4],480,400,100,40);
+			break;
+			case "shapechoice5":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this shape?",20,50);
+					
+							ctx.drawImage(shapeArray[4],200,121.45,100,100);
+							ctx.drawImage(shapeGuessArray[0],20,400,100,40);
+							ctx.drawImage(shapeGuessArray[1],150,400,100,40);
+							ctx.drawImage(shapeGuessArray[2],260,400,100,40);
+							ctx.drawImage(shapeGuessArray[3],370,400,100,40);
+							ctx.drawImage(shapeGuessArray[4],480,400,100,40);
+			break;
+			//******************************************Fruit Choices*****************************//
+			case "fruitchoice1":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this fruit?",20,50);
+					
+							ctx.drawImage(veggieArray[0],200,121.45,100,100);
+							ctx.drawImage(veggieGuessArray[0],20,400,100,40);
+							ctx.drawImage(veggieGuessArray[1],150,400,90,40);
+							ctx.drawImage(veggieGuessArray[2],260,400,90,40);
+							ctx.drawImage(veggieGuessArray[3],370,400,90,40);
+							ctx.drawImage(veggieGuessArray[4],480,400,90,40);
+			break;
+			case "fruitchoice2":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this fruit?",20,50);
+					
+							ctx.drawImage(veggieArray[1],200,121.45,100,100);
+							ctx.drawImage(veggieGuessArray[0],20,400,100,40);
+							ctx.drawImage(veggieGuessArray[1],150,400,100,40);
+							ctx.drawImage(veggieGuessArray[2],260,400,100,40);
+							ctx.drawImage(veggieGuessArray[3],370,400,100,40);
+							ctx.drawImage(veggieGuessArray[4],480,400,100,40);
+			break;
+			case "fruitchoice3":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this fruit?",20,50);
+					
+							ctx.drawImage(veggieArray[2],200,121.45,100,100);
+							ctx.drawImage(veggieGuessArray[0],20,400,100,40);
+							ctx.drawImage(veggieGuessArray[1],150,400,100,40);
+							ctx.drawImage(veggieGuessArray[2],260,400,100,40);
+							ctx.drawImage(veggieGuessArray[3],370,400,100,40);
+							ctx.drawImage(veggieGuessArray[4],480,400,100,40);
+			break;
+			case "fruitchoice4":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this fruit?",20,50);
+					
+							ctx.drawImage(veggieArray[3],200,121.45,100,100);
+							ctx.drawImage(veggieGuessArray[0],20,400,100,40);
+							ctx.drawImage(veggieGuessArray[1],150,400,100,40);
+							ctx.drawImage(veggieGuessArray[2],260,400,100,40);
+							ctx.drawImage(veggieGuessArray[3],370,400,100,40);
+							ctx.drawImage(veggieGuessArray[4],480,400,100,40);
+			break;
+			case "fruitchoice5":
+					ctx.clearRect(0,0,canvas.width,canvas.height);
+					ctx.font = "35px Kristen ITC";
+					ctx.strokeText("What is this fruit?",20,50);
+					
+							ctx.drawImage(veggieArray[4],200,121.45,100,100);
+							ctx.drawImage(veggieGuessArray[0],20,400,100,40);
+							ctx.drawImage(veggieGuessArray[1],150,400,100,40);
+							ctx.drawImage(veggieGuessArray[2],260,400,100,40);
+							ctx.drawImage(veggieGuessArray[3],370,400,100,40);
+							ctx.drawImage(veggieGuessArray[4],480,400,100,40);
+			break;
+		}
+	}
+	//drawing the menu
+	setInterval(draw, 1000/30);
+	
+	function clicked(e){
+			var x = e.offsetX;
+			var y = e.offsetY;
+	//***********************************Controls Click*****************************************//
+		switch(curscreen){
+			case "menu" :
+					if(x >= 150 && x <= 150+kidbtn.width && y >= 121.45 && y <= 121.45+kidbtn.height){
+							curscreen = "kidscreen";
+					}
+					if(x >= 470 && x<= 470+akbtn.width && y >= 100 && y <= 100+akbtn.height){
+							curscreen = "adultscreen";
+					}
+			break;
+			
+			case "kidscreen" :
+					if(x >= 40 && x <= 40+shapes.width && y >= 121.45 && y <= 121.45+shapes.height){
+							curscreen = "animalchoice1";
+					}
+					if(x >= 270 && x<= 270+shapes.width && y >= 121.45 && y <= 121.45+shapes.height){
+							curscreen = "shapechoice1";
+					}
+					if(x >= 500 && x<= 500+fruAveg.width && y >= 100 && y <= 100+fruAveg.height){
+							curscreen = "fruitchoice1";
+					}
+			break;
+			/* used to click the adult options
+			case "adultscreen":
+					if(x >= 150 && x <= 150+kidbtn.width && y >= 121.45 && y <= 121.45+kidbtn.height){
+							curscreen = "";
+					}
+					if(x >= 470 && x<= 470+akbtn.width && y >= 100 && y <= 100+akbtn.height){
+							curscreen = "adultscreen";
+					}
+			break;		*/							
+			//*****************************Animal Clicking**********************//
+			case "animalchoice1":
+					if(x >= 20 && x<= 20+animalGuessArray[0].width && y >= 400 && y <= 400+animalGuessArray[0].height){
+							alert("Correct");
+							curscreen = "animalchoice2";
+					}
+					if(x >= 150 && x<= 150+animalGuessArray[1].width && y >= 400 && y <= 400+animalGuessArray[1].height){
+						
+					alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice1";
+					}
+					if(x >= 260 && x<= 260+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice1";
+					}
+					if(x >= 370 && x<= 370+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice1";
+					}
+					if(x >= 480 && x<= 480+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice1";
+					}
+					// implementing audio 
+					/*if (x >= 200 && x<= 200+animalArray[0].width && y >= 125.45 && y <= 125.45+animalArray[0].height){
+					<audio controls>
+						<source src="cat.mp3" type="audio/mpeg">
+						</audio>*/
+			break;
+			case "animalchoice2":
+			if(x >= 20 && x<= 20+animalGuessArray[0].width && y >= 400 && y <= 400+animalGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice2";
+					}
+					if(x >= 150 && x<= 150+animalGuessArray[1].width && y >= 400 && y <= 400+animalGuessArray[1].height){
+							alert("Correct");
+							curscreen = "animalchoice3";
+					}
+					if(x >= 260 && x<= 260+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice2";
+					}
+					if(x >= 370 && x<= 370+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice2";
+					}
+					if(x >= 480 && x<= 480+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice2";
+					}
+			break;
+			case "animalchoice3":
+			if(x >= 20 && x<= 20+animalGuessArray[0].width && y >= 400 && y <= 400+animalGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice3";
+					}
+					if(x >= 150 && x<= 150+animalGuessArray[1].width && y >= 400 && y <= 400+animalGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice3";
+					}
+					if(x >= 260 && x<= 260+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Correct");
+							curscreen = "animalchoice4";
+					}
+					if(x >= 370 && x<= 370+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice3";
+					}
+					if(x >= 480 && x<= 480+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice3";
+					}
+			break;
+			case "animalchoice4":
+			if(x >= 20 && x<= 20+animalGuessArray[0].width && y >= 400 && y <= 400+animalGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice4";
+					}
+					if(x >= 150 && x<= 150+animalGuessArray[1].width && y >= 400 && y <= 400+animalGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice4";
+					}
+					if(x >= 260 && x<= 260+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice4";
+					}
+					if(x >= 370 && x<= 370+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Correct");
+							curscreen = "animalchoice5";
+					}
+					if(x >= 480 && x<= 480+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice4";
+					}
+			break;
+			case "animalchoice5":
+			if(x >= 20 && x<= 20+animalGuessArray[0].width && y >= 400 && y <= 400+animalGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice5";
+					}
+					if(x >= 150 && x<= 150+animalGuessArray[1].width && y >= 400 && y <= 400+animalGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice5";
+					}
+					if(x >= 260 && x<= 260+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice5";
+					}
+					if(x >= 370 && x<= 370+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "animalchoice5";
+					}
+					if(x >= 480 && x<= 480+animalGuessArray[2].width && y >= 400 && y <= 400+animalGuessArray[2].height){
+							alert("Correct");
+							curscreen = "kidscreen";
+					}
+			break;
+			//********************************************Shape Clicking**********************//
+				case "shapechoice1":
+			if(x >= 20 && x<= 20+shapeGuessArray[0].width && y >= 400 && y <= 400+shapeGuessArray[0].height){
+							alert("Correct");
+							curscreen = "shapechoice2";
+					}
+					if(x >= 150 && x<= 150+shapeGuessArray[1].width && y >= 400 && y <= 400+shapeGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice1";
+					}
+					if(x >= 260 && x<= 260+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice1";
+					}
+					if(x >= 370 && x<= 370+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice1";
+					}
+					if(x >= 480 && x<= 480+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice1";
+					}
+			break;
+			case "shapechoice2":
+			if(x >= 20 && x<= 20+shapeGuessArray[0].width && y >= 400 && y <= 400+shapeGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice2";
+					}
+					if(x >= 150 && x<= 150+shapeGuessArray[1].width && y >= 400 && y <= 400+shapeGuessArray[1].height){
+						
+					alert("Correct");
+							curscreen = "shapechoice3";
+					}
+					if(x >= 260 && x<= 260+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice2";
+					}
+					if(x >= 370 && x<= 370+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice2";
+					}
+					if(x >= 480 && x<= 480+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice2";
+					}
+			break;
+			case "shapechoice3":
+			if(x >= 20 && x<= 20+shapeGuessArray[0].width && y >= 400 && y <= 400+shapeGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice3";
+					}
+					if(x >= 150 && x<= 150+shapeGuessArray[1].width && y >= 400 && y <= 400+shapeGuessArray[1].height){
+						
+					alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice3";
+					}
+					if(x >= 260 && x<= 260+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Correct");
+							curscreen = "shapechoice4";
+					}
+					if(x >= 370 && x<= 370+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice3";
+					}
+					if(x >= 480 && x<= 480+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice3";
+					}
+			break;
+			case "shapechoice4":
+			if(x >= 20 && x<= 20+shapeGuessArray[0].width && y >= 400 && y <= 400+shapeGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice4";
+					}
+					if(x >= 150 && x<= 150+shapeGuessArray[1].width && y >= 400 && y <= 400+shapeGuessArray[1].height){
+						
+					alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice4";
+					}
+					if(x >= 260 && x<= 260+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice4";
+					}
+					if(x >= 370 && x<= 370+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Correct");
+							curscreen = "shapechoice5";
+					}
+					if(x >= 480 && x<= 480+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice4";
+					}
+			break;
+			case "shapechoice5":
+			if(x >= 20 && x<= 20+shapeGuessArray[0].width && y >= 400 && y <= 400+shapeGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice5";
+					}
+					if(x >= 150 && x<= 150+shapeGuessArray[1].width && y >= 400 && y <= 400+shapeGuessArray[1].height){
+						
+					alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice5";
+					}
+					if(x >= 260 && x<= 260+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice5";
+					}
+					if(x >= 370 && x<= 370+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "shapechoice5";
+					}
+					if(x >= 480 && x<= 480+shapeGuessArray[2].width && y >= 400 && y <= 400+shapeGuessArray[2].height){
+							alert("Correct");
+							curscreen = "kidscreen";
+					}
+			break;
+			//***********************************************Fruit Clicking********************************//
+			case "fruitchoice1":
+					if(x >= 20 && x<= 20+veggieGuessArray[0].width && y >= 400 && y <= 400+veggieGuessArray[0].height){
+							alert("Correct");
+							curscreen = "fruitchoice2";
+					}
+					if(x >= 150 && x<= 150+veggieGuessArray[1].width && y >= 400 && y <= 400+veggieGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+				
+	}
+					if(x >= 260 && x<= 260+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+					if(x >= 370 && x<= 370+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+					if(x >= 480 && x<= 480+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+			break;
+			case "fruitchoice2":
+					if(x >= 20 && x<= 20+veggieGuessArray[0].width && y >= 400 && y <= 400+veggieGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice2";
+					}
+					if(x >= 150 && x<= 150+veggieGuessArray[1].width && y >= 400 && y <= 400+veggieGuessArray[1].height){
+							alert("Correct");
+							curscreen = "fruitchoice3";
+					}
+					if(x >= 260 && x<= 260+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice2";
+					}
+					if(x >= 370 && x<= 370+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice2";
+					}
+					if(x >= 480 && x<= 480+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice2";
+					}
+			break;
+			case "fruitchoice3":
+					if(x >= 20 && x<= 20+veggieGuessArray[0].width && y >= 400 && y <= 400+veggieGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice3";
+					}
+					if(x >= 150 && x<= 150+veggieGuessArray[1].width && y >= 400 && y <= 400+veggieGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice3";
+					}
+					if(x >= 260 && x<= 260+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Correct");
+							curscreen = "fruitchoice4";
+					}
+					if(x >= 370 && x<= 370+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice3";
+					}
+					if(x >= 480 && x<= 480+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice3";
+					}
+			break;
+			case "fruitchoice4":
+					if(x >= 20 && x<= 20+veggieGuessArray[0].width && y >= 400 && y <= 400+veggieGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice4";
+					}
+					if(x >= 150 && x<= 150+veggieGuessArray[1].width && y >= 400 && y <= 400+veggieGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice4";
+					}
+					if(x >= 260 && x<= 260+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice4";
+					}
+					if(x >= 370 && x<= 370+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Correct");
+							curscreen = "fruitchoice5";
+					}
+					if(x >= 480 && x<= 480+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice4";
+					}
+				break;
+					
+				case "fruitchoice5":
+					if(x >= 20 && x<= 20+veggieGuessArray[0].width && y >= 400 && y <= 400+veggieGuessArray[0].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+					if(x >= 150 && x<= 150+veggieGuessArray[1].width && y >= 400 && y <= 400+veggieGuessArray[1].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+					if(x >= 260 && x<= 260+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+					if(x >= 370 && x<= 370+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Incorrect \nGuess Again");
+							curscreen = "fruitchoice1";
+					}
+					if(x >= 480 && x<= 480+veggieGuessArray[2].width && y >= 400 && y <= 400+veggieGuessArray[2].height){
+							alert("Correct");
+							curscreen = "kidscreen";
+					}
+				break;
+		}
+	}
+   </script>
+	
+</body>
+</html>

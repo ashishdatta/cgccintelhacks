@@ -1,0 +1,960 @@
+<!--
+Intel's 24 hour Hackathon for Good
+April 5th, 2014
+Arizona
+
+Overall Topic: Create a program that helps with early childhood education.
+
+Program Goal: To educate children ages 0-4 on their basic alphabet letters through phonographic and visual
+(Level2)
+
+Coded by: Michael (Sheng) Wang
+email bugs/questions to:
+michaelw998@yahoo.com
+michaelw998@berkeley.edu
+
+Images and Sound Clips found by:
+Jacob Gonzales
+Francisco Medina
+
+Copyright (c) 2014
+
+Free for educational, non-profit use
+-->
+
+
+<!doctype html>
+
+<html>
+<title>The Best Alphabet Learning Game Ever</title>
+<head>
+	
+</head>
+<body>
+	<canvas id="myCanvas" width = "600" height = "400" style="border:1px solid black">
+	</canvas>
+	
+	
+	<script>
+		var score =0;
+		console.log(score);
+	
+		var op1=1;
+		var op2=1;
+		var op3=1;
+		var op4=1;
+
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext('2d');
+		
+		var randomLetter;// = Math.floor(Math.random()*27)+1;
+		var randomScreen1;// = Math.floor(Math.random()*4)+1;
+		var randomScreen2;// = Math.floor(Math.random()*4)+1;
+		
+		console.log(randomScreen1)
+		console.log(randomScreen2)
+
+		
+		var audioa = new Audio();
+		audioa.src = "A.mp3";
+		
+		var audiob = new Audio();
+		audiob.src = "B.mp3";
+
+		var audioc = new Audio();
+		audioc.src = "C.mp3";		
+		
+		var audiod = new Audio();
+		audiod.src = "D.mp3";	
+
+		var audioe = new Audio();
+		audioe.src = "E.mp3";		
+		
+		var audiof = new Audio();
+		audiof.src = "F.mp3";		
+		
+		var audiog = new Audio();
+		audiog.src = "G.mp3";		
+		
+		var audioh = new Audio();
+		audioh.src = "H.mp3";		
+		
+		var audioi = new Audio();
+		audioi.src = "I.mp3";		
+		
+		var audioj = new Audio();
+		audioj.src = "J.mp3";		
+		
+		var audiok = new Audio();
+		audiok.src = "K.mp3";		
+		
+		var audiol = new Audio();
+		audiol.src = "L.mp3";		
+		
+		var audiom = new Audio();
+		audiom.src = "M.mp3";		
+		
+		var audion = new Audio();
+		audion.src = "N.mp3";		
+		
+		var audioo = new Audio();
+		audioo.src = "O.mp3";			
+		
+		var audiop = new Audio();
+		audiop.src = "P.mp3";			
+		
+		var audioq = new Audio();
+		audioq.src = "Q.mp3";			
+		
+		var audior = new Audio();
+		audior.src = "R.mp3";			
+		
+		var audios = new Audio();
+		audios.src = "S.mp3";			
+		
+		var audiot = new Audio();
+		audiot.src = "T.mp3";			
+		
+		var audiou = new Audio();
+		audiou.src = "U.mp3";			
+		
+		var audiov = new Audio();
+		audiov.src = "V.mp3";			
+		
+		var audiow = new Audio();
+		audiow.src = "W.mp3";
+		
+		var audiox = new Audio();
+		audiox.src = "X.mp3";			
+		
+		var audioy = new Audio();
+		audioy.src = "Y.mp3";			
+		
+		var audioz = new Audio();
+		audioz.src = "Z.mp3";		
+		
+		
+		var blockTopLeft = new Image();
+		blockTopLeft.src = "TL.png";
+		
+		var blockTopRight = new Image();
+		blockTopRight.src = "TR.png";
+		
+		var blockBottomLeft = new Image();
+		blockBottomLeft.src = "BL.png";
+	
+		var blockBottomRight = new Image();
+		blockBottomRight.src = "BR.png";
+
+		var bgImage = new Image();
+		bgImage.src="A.png";
+	
+		var bgImageA = new Image();
+		bgImageA.src="A.png";
+		
+		var bgImageB = new Image();
+		bgImageB.src="B.png";
+		
+		var bgImageC = new Image();
+		bgImageC.src="C.png";
+
+		var bgImageD = new Image();
+		bgImageD.src="D.png";
+
+		var bgImageE = new Image();
+		bgImageE.src="E.png";
+
+		var bgImageF = new Image();
+		bgImageF.src="F.png";
+
+		var bgImageG = new Image();
+		bgImageG.src="G.png";
+
+		var bgImageH = new Image();
+		bgImageH.src="H.png";
+
+		var bgImageI = new Image();
+		bgImageI.src="I.png";
+
+		var bgImageJ = new Image();
+		bgImageJ.src="J.png";
+
+		var bgImageK = new Image();
+		bgImageK.src="K.png";
+
+		var bgImageL = new Image();
+		bgImageL.src="L.png";
+
+		var bgImageM = new Image();
+		bgImageM.src="M.png";
+
+		var bgImageN = new Image();
+		bgImageN.src="N.png";
+
+		var bgImageO = new Image();
+		bgImageO.src="O.png";
+
+		var bgImageP = new Image();
+		bgImageP.src="P.png";
+
+		var bgImageQ = new Image();
+		bgImageQ.src="Q.png";
+
+		var bgImageR = new Image();
+		bgImageR.src="R.png";
+
+		var bgImageS = new Image();
+		bgImageS.src="S.png";
+
+		var bgImageT = new Image();
+		bgImageT.src="T.png";		
+
+		var bgImageU = new Image();
+		bgImageU.src="U.png";
+
+		var bgImageV = new Image();
+		bgImageV.src="V.png";
+
+		var bgImageW = new Image();
+		bgImageW.src="W.png";
+
+		var bgImageX = new Image();
+		bgImageX.src="X.png";
+
+		var bgImageY = new Image();
+		bgImageY.src="Y.png";		
+
+		var bgImageZ = new Image();
+		bgImageZ.src="Z.png";	
+	
+		function opacity()
+		{
+			//console.log(op1+":"+op2+":"+op3+":"+op4);
+			if (randomScreen1==1 || randomScreen2==1)
+			{
+				if (op1<=0)
+				{
+					op1=0;
+				}
+				else
+				{
+					op1-=0.05;
+				}
+			}
+			
+			if (randomScreen1==2 || randomScreen2==2)
+			{
+				if (op2<=0)
+				{
+					op2=0;
+				}		
+				else
+				{
+				op2-=0.05;				
+				}
+			}
+			
+			if (randomScreen1==3 || randomScreen2==3)
+			{
+				if (op3<=0)
+				{
+					op3=0;
+				}
+				else
+				{
+				op3-=0.05;				
+				}
+
+			}
+			
+			if (randomScreen1==4 || randomScreen2==4)
+			{
+				if (op4<=0)
+				{
+					op4=0;
+				}
+				else
+				{
+					op4-=0.05;
+				}
+			}
+		}
+		
+		function blockScreen()
+		{
+			ctx.clearRect(0,0,600,400);
+			ctx.drawImage(bgImage,0,0,600,400);
+			
+			ctx.globalAlpha = op1;		
+			ctx.drawImage(blockTopLeft,000,000);
+			
+			ctx.globalAlpha = op2;
+			ctx.drawImage(blockTopRight,300,000);
+			
+			ctx.globalAlpha = op3;
+			ctx.drawImage(blockBottomLeft,000,200);
+			
+			ctx.globalAlpha = op4;
+			ctx.drawImage(blockBottomRight,300,200);
+
+			ctx.globalAlpha = 1;
+		}
+		
+		function newBackground()
+		{
+			
+			switch(randomLetter)
+			{	
+				case 1: 	//Background Letter A
+					bgImage = bgImageA;
+					audioa.play();
+					break;
+					
+				case 2: 	//Background Letter B
+					bgImage = bgImageB;
+					audiob.play();
+					break;
+
+				case 3: 	//Background Letter C
+					bgImage = bgImageC;
+					audioc.play();
+					break;	
+					
+				case 4: 	//Background Letter D
+					bgImage = bgImageD;
+					audiod.play();
+					break;	
+
+				case 5: 	//Background Letter E
+					bgImage = bgImageE;
+					audioe.play();
+					break;
+					
+				case 6: 	//Background Letter F
+					bgImage = bgImageF;
+					audiof.play();
+					break;
+
+				case 7: 	//Background Letter G
+					bgImage = bgImageG;
+					audiog.play();
+					break;	
+					
+				case 8: 	//Background Letter H
+					bgImage = bgImageH;
+					audioh.play();
+					break;	
+				
+				case 9: 	//Background Letter I
+					bgImage = bgImageI;
+					audioi.play();
+					break;
+					
+				case 10: 	//Background Letter J
+					bgImage = bgImageJ;
+					audioj.play();
+					break;
+
+				case 11: 	//Background Letter K
+					bgImage = bgImageK;
+					audiok.play();
+					break;	
+					
+				case 12: 	//Background Letter L
+					bgImage = bgImageL;
+					audiol.play();
+					break;	
+				
+				case 13: 	//Background Letter M
+					bgImage = bgImageM;
+					audiom.play();
+					break;
+					
+				case 14: 	//Background Letter N
+					bgImage = bgImageN;
+					audion.play();
+					break;
+
+				case 15: 	//Background Letter O
+					bgImage = bgImageO;
+					audioo.play();
+					break;	
+					
+				case 16: 	//Background Letter P
+					bgImage = bgImageP;
+					audiop.play();
+					break;	
+					
+				case 17: 	//Background Letter Q
+					bgImage = bgImageQ;
+					audioq.play();
+					break;
+					
+				case 18: 	//Background Letter R
+					bgImage = bgImageR;
+					audior.play();
+					break;
+
+				case 19: 	//Background Letter S
+					bgImage = bgImageS;
+					audios.play();
+					break;	
+					
+				case 20: 	//Background Letter T
+					bgImage = bgImageT;
+					audiot.play();
+					break;	
+				
+				case 21: 	//Background Letter U
+					bgImage = bgImageU;
+					audiou.play();
+					break;
+					
+				case 22: 	//Background Letter V
+					bgImage = bgImageV;
+					audiov.play();
+					break;
+
+				case 23: 	//Background Letter W
+					bgImage = bgImageW;
+					audiow.play();
+					break;	
+					
+				case 24: 	//Background Letter X
+					bgImage = bgImageX;
+					audiox.play();
+					break;	
+
+				case 25: 	//Background Letter Y
+					bgImage = bgImageY;
+					audioy.play();
+					break;	
+					
+				case 26: 	//Background Letter Z
+					bgImage = bgImageZ;
+					audioz.play();
+					break;	
+
+					
+			}
+		}
+		
+		
+		var drawtimer = setInterval(blockScreen,1000/30);
+		var timer=setInterval(opacity,1000/10);
+		
+		function NextLetter()
+		{
+			op1=1;
+			op2=1;
+			op3=1;
+			op4=1;
+			randomLetter = Math.floor(Math.random()*27)+1;
+			randomScreen1 = Math.floor(Math.random()*4)+1;
+			randomScreen2 = Math.floor(Math.random()*4)+1;
+			newBackground()
+		}
+		
+		function Repeat()
+		{
+			switch((randomLetter))
+			{	
+				case 1: 	//Background Letter A
+					audioa.play();
+					break;
+					
+				case 2: 	//Background Letter B
+					audiob.play();
+					break;
+
+				case 3: 	//Background Letter C
+					audioc.play();
+					break;	
+					
+				case 4: 	//Background Letter D
+					audiod.play();
+					break;	
+
+				case 5: 	//Background Letter E
+					audioe.play();
+					break;
+					
+				case 6: 	//Background Letter F
+					audiof.play();
+					break;
+
+				case 7: 	//Background Letter G
+					audiog.play();
+					break;	
+					
+				case 8: 	//Background Letter H
+					audioh.play();
+					break;	
+				
+				case 9: 	//Background Letter I
+					audioi.play();
+					break;
+					
+				case 10: 	//Background Letter J
+					audioj.play();
+					break;
+
+				case 11: 	//Background Letter K
+					audiok.play();
+					break;	
+					
+				case 12: 	//Background Letter L
+					audiol.play();
+					break;	
+				
+				case 13: 	//Background Letter M
+					audiom.play();
+					break;
+					
+				case 14: 	//Background Letter N
+					audion.play();
+					break;
+
+				case 15: 	//Background Letter O
+					audioo.play();
+					break;	
+					
+				case 16: 	//Background Letter P
+					audiop.play();
+					break;	
+					
+				case 17: 	//Background Letter Q
+					audioq.play();
+					break;
+					
+				case 18: 	//Background Letter R
+					audior.play();
+					break;
+
+				case 19: 	//Background Letter S
+					audios.play();
+					break;	
+					
+				case 20: 	//Background Letter T
+					audiot.play();
+					break;	
+				
+				case 21: 	//Background Letter U
+					audiou.play();
+					break;
+					
+				case 22: 	//Background Letter V
+					audiov.play();
+					break;
+
+				case 23: 	//Background Letter W
+					audiow.play();
+					break;	
+					
+				case 24: 	//Background Letter X
+					audiox.play();
+					break;	
+
+				case 25: 	//Background Letter Y
+					audioy.play();
+					break;	
+					
+				case 26: 	//Background Letter Z
+					audioz.play();
+					break;	
+			}
+		}
+	
+
+	
+	
+	function myFunctionGiveUp()
+	{
+		alert("Don't Give Up! Try Again :)");
+	}
+
+	
+	function myFunctionA()
+	{
+		if (randomLetter != 1)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionB()
+	{
+		if (randomLetter != 2)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}		
+	};
+	
+	function myFunctionC()
+	{
+		if (randomLetter != 3)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+
+	};
+	
+	function myFunctionD()
+	{
+		if (randomLetter != 4)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+
+	};
+	
+	function myFunctionE()
+	{
+		if (randomLetter != 5)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	
+	};
+	
+	function myFunctionF()
+	{
+		if (randomLetter != 6)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	
+	
+	};
+	
+	function myFunctionG()
+	{
+		if (randomLetter != 7)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionH()
+	{
+		if (randomLetter != 8)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionI()
+	{
+		if (randomLetter != 9)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionJ()
+	{
+		if (randomLetter != 10)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionK()
+	{
+		if (randomLetter != 11)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionL()
+	{
+		if (randomLetter != 12)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionM()
+	{
+		if (randomLetter != 13)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionN()
+	{
+		if (randomLetter != 14)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionO()
+	{
+		if (randomLetter != 15)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionP()
+	{
+		if (randomLetter != 16)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionQ()
+	{
+		if (randomLetter != 17)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionR()
+	{
+		if (randomLetter != 18)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionS()
+	{
+		if (randomLetter != 19)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionT()
+	{
+		if (randomLetter != 20)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionU()
+	{
+		if (randomLetter != 21)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionV()
+	{
+		if (randomLetter != 22)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionW()
+	{
+		if (randomLetter != 23)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionX()
+	{
+		if (randomLetter != 24)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionY()
+	{
+		if (randomLetter != 25)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+	
+	function myFunctionZ()
+	{
+		if (randomLetter != 26)
+		{
+			alert("Nice Try! Try Again");
+		}
+		else
+		{
+			alert("Great Job!");
+			score+=10;
+		}
+	};
+
+	</script>
+
+	
+	<button type="button" id="A" style="position: absolute; left: 010px; top: 420px; width: 50px; height: 50px;" onclick="myFunctionA()">A</button>
+	<button type="button" id="B" style="position: absolute; left: 070px; top: 420px;width: 50px; height: 50px;" onclick="myFunctionB()">B</button>
+	<button type="button" id="C" style="position: absolute; left: 130px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionC()">C</button>
+	<button type="button" id="D" style="position: absolute; left: 190px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionD()">D</button>
+	<button type="button" id="E" style="position: absolute; left: 250px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionE()">E</button>
+	<button type="button" id="F" style="position: absolute; left: 310px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionF()">F</button>
+	<button type="button" id="G" style="position: absolute; left: 370px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionG()">G</button>
+	<button type="button" id="H" style="position: absolute; left: 430px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionH()">H</button>
+	<button type="button" id="I" style="position: absolute; left: 490px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionI()">I</button>
+	<button type="button" id="J" style="position: absolute; left: 550px; top: 420px;width: 50px; height: 50px;"onclick="myFunctionJ()">J</button>
+	<button type="button" id="K" style="position: absolute; left: 010px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionK()">K</button>
+	<button type="button" id="L" style="position: absolute; left: 070px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionL()">L</button>
+	<button type="button" id="M" style="position: absolute; left: 130px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionM()">M</button>
+	<button type="button" id="N" style="position: absolute; left: 190px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionN()">N</button>
+	<button type="button" id="O" style="position: absolute; left: 250px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionO()">O</button>
+	<button type="button" id="P" style="position: absolute; left: 310px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionP()">P</button>
+	<button type="button" id="Q" style="position: absolute; left: 370px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionQ()">Q</button>
+	<button type="button" id="R" style="position: absolute; left: 430px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionR()">R</button>
+	<button type="button" id="S" style="position: absolute; left: 490px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionS()">S</button>
+	<button type="button" id="T" style="position: absolute; left: 550px; top: 480px;width: 50px; height: 50px;"onclick="myFunctionT()">T</button>
+	<button type="button" id="U" style="position: absolute; left: 010px; top: 540px;width: 50px; height: 50px;"onclick="myFunctionU()">U</button>
+	<button type="button" id="V" style="position: absolute; left: 070px; top: 540px;width: 50px; height: 50px;"onclick="myFunctionV()">V</button>
+	<button type="button" id="W" style="position: absolute; left: 130px; top: 540px;width: 50px; height: 50px;"onclick="myFunctionW()">W</button>
+	<button type="button" id="X" style="position: absolute; left: 190px; top: 540px;width: 50px; height: 50px;"onclick="myFunctionX()">X</button>
+	<button type="button" id="Y" style="position: absolute; left: 250px; top: 540px;width: 50px; height: 50px;"onclick="myFunctionY()">Y</button>
+	<button type="button" id="Z" style="position: absolute; left: 310px; top: 540px;width: 50px; height: 50px;"onclick="myFunctionZ()">Z</button>
+	<button type="button" id="GiveUp" style="position: absolute; left: 370px; top: 540px;width: 230px; height: 50px;"onclick="myFunctionGiveUp()">I Don't Know :(</button>
+	
+	<button type="button" id="Repeat" style="position: absolute; left: 010px; top: 600px;width: 230px; height: 50px;"onclick="Repeat()">Repeat</button>
+	
+	<button type="button" id="NextLetter" style="position: absolute; left: 310px; top: 600px;width: 290px; height: 50px;"onclick="NextLetter()">Next letter</button>
+	
+	
+	
+	
+
+</body>
+</html>

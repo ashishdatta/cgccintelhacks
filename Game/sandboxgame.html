@@ -1,0 +1,284 @@
+<!doctype HTML>
+<html>
+<title>Sandbox Game</title>
+<body>
+<canvas id="myCanvas" width="800" height="480" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousedown", clicked);
+			canvas.addEventListener("mousemove", moved);
+			canvas.addEventListener("mouseup", released);
+			
+			
+			var bg = new Image();
+			bg.src = "sandbox.png"
+
+			
+			
+			var wordInArray = 0;
+			//wordInArray = Math.floor(Math.random()*3);
+			
+			
+			var isclicked = 0;
+			var itemsFound = 0;
+			
+			var sandboxImage = new Array("apple", "Sand Castle","Shovel","Bucket","dumptruck");
+			
+			var image1 = new Image();
+			var imgX = 90;
+			var imgY = 90;
+			var imgXD = 90;
+			var imgYD = 90;
+			image1.w = 25;
+			image1.h = 25;
+			image1.src="apple.png";
+			
+			var image2= new Image();
+			var img2X = 180;
+			var img2Y = 180;
+			var img2XD = 180;
+			var img2YD = 180;
+			image2.w = 100;
+			image2.h = 100;
+			image2.src="sandcastle.png";
+			
+			var image3= new Image();
+			var img3X = 180;
+			var img3Y = 90;			
+			var img3XD = 180;
+			var img3YD = 90;
+			image3.w = 60;
+			image3.h = 60;
+			image3.src="shovel.png";
+			
+			var image4= new Image();
+			var img4X = 300;
+			var img4Y = 210;			
+			var img4XD = 300;
+			var img4YD = 210;
+			image4.w = 60;
+			image4.h = 60;
+			image4.src="bucket.png";
+			
+			var image5= new Image();
+			var img5X = 250;
+			var img5Y = 290;			
+			var img5XD = 250;
+			var img5YD = 290;
+			image5.w = 60;
+			image5.h = 60;
+			image5.src="dumptruck.png";
+			
+
+			var offX = 0;
+			var offY = 0;
+
+			function draw(){
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.drawImage(bg,0,0,canvas.width,canvas.height);
+				ctx.drawImage(image1,imgX,imgY,image1.w,image1.h);
+				ctx.drawImage(image2,img2X,img2Y,image2.w,image2.h);
+				ctx.drawImage(image3,img3X,img3Y,image3.w,image3.h);		
+				ctx.drawImage(image4,img4X,img4Y,image4.w,image4.h);
+				ctx.drawImage(image5,img5X,img5Y,image5.w,image5.h);				
+				ctx.fillStyle = "rgb(250, 250,250)";
+				ctx.font = "24px Helvetica";
+				ctx.textAlign = "left";
+				ctx.textBaseline = "top"
+				ctx.fillText("Things you've put away: " + itemsFound,15,15);	
+			if(wordInArray < 5)
+				{
+				ctx.fillText("Please place the "+sandboxImage[wordInArray]+" in the yellow box",144,432);
+				}
+				else
+				ctx.fillText("Congratulations you get a cookie!",144,432);
+			}
+
+
+			function game(){
+			}
+
+			function clicked(e){
+				var x = e.offsetX;
+				var y = e.offsetY;
+					if(x >= imgX && x <= imgX + image1.w &&
+					y >= imgY && y <= imgY + image1.h){
+					isclicked = 1;
+					offX = x - imgX;
+					offY = y - imgY;
+				}   else if(x >= img2X && x <= img2X + image2.w &&
+					y >= img2Y && y <= img2Y + image2.h){
+					isclicked = 2;
+					offX = x - img2X;
+					offY = y - img2Y;
+				}    else if(x >= img3X && x <= img3X + image3.w &&
+					y >= img3Y && y <= img3Y + image3.h){
+					isclicked = 3
+					offX = x - img3X;
+					offY = y - img3Y;
+				}     else if(x >= img4X && x <= img4X + image4.w &&
+					y >= img4Y && y <= img4Y + image4.h){
+					isclicked = 4
+					offX = x - img4X;
+					offY = y - img4Y;
+				}     else if(x >= img5X && x <= img5X + image5.w &&
+					y >= img5Y && y <= img5Y + image5.h){
+					isclicked = 5
+					offX = x - img5X;
+					offY = y - img5Y;
+				}  
+			}
+			
+			
+			
+			
+			function moved(e){
+				if(isclicked == 1){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					imgX = x - offX;
+					imgY = y - offY;
+				}
+				if(isclicked == 2){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img2X = x - offX;
+					img2Y = y - offY;
+				}				
+				if(isclicked == 3){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img3X = x - offX;
+					img3Y = y - offY;
+				}
+				if(isclicked == 4){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img4X = x - offX;
+					img4Y = y - offY;
+				}
+				if(isclicked == 5){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img5X = x - offX;
+					img5Y = y - offY;
+					}
+			}
+			function released(e){
+				var clickedValue = isclicked;
+				isclicked = 0;
+				var x = e.offsetX;
+				var y = e.offsetY;
+				console.log(x+","+y);
+				if(x>=543 && x<=622 && y>=85 && y<= 156){
+					console.log(clickedValue + " " + wordInArray);
+					if(clickedValue == wordInArray+1){
+						itemsFound++;
+						wordInArray++;
+						switch(clickedValue)
+						{
+							case 1: imgX = canvas.width+1; 
+							break;
+							
+							case 2: img2X = canvas.width+1; 
+							break;
+							
+							case 3: img3X = canvas.width+1; 
+							break;
+
+							case 4: img4X = canvas.width+1; 
+							break;
+							
+							case 5: img5X = canvas.width+1; 
+							break;
+							
+						}
+					}
+					else 
+					{
+						switch(clickedValue)
+						{
+							case 1: imgX = imgXD; 
+									imgY = imgYD;
+							break;
+							
+							case 2: img2X = img2XD; 
+							img2Y = img2YD;
+							break;
+							
+							case 3: img3X = img3XD; 
+							img3Y = img3YD;
+							break;
+							
+							case 4: img4X = img4XD; 
+							img4Y = img4YD;
+							break;
+							
+							case 5: img5X = img5XD; 
+							img5Y = img5YD;
+							break;
+							
+							
+						}
+					}	
+				}
+			}
+			
+			function score(e){			
+				var x = e.offsetX;
+				var y = e.offsetY;
+				
+			
+			}
+
+			var drawtimer = setInterval(draw, 1000/30);
+			var gametimer = setInterval(game, 1000/10);
+			
+
+
+		</script>
+		<br><br>
+		<a href="file:///C:/Users/IUEE/Desktop/Game/bedroomGame.html">Bedroom</a>
+		<a href="file:///C:/Users/IUEE/Desktop/Game/zoo.html">Zoo</a>
+		<a href="file:///C:/Users/IUEE/Desktop/Game/treehousegame.html">Treehouse</a>		
+		<br><br>
+		<p>
+			Apple
+		</p>
+		
+		<audio controls>
+				<source src = "apple.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Sand Castle
+		</p>
+		<audio controls>
+				<source src = "sandcastle.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+				Shovel.
+		</p>
+		<audio controls>
+				<source src = "shovel.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Bucket.
+		</p>
+		<audio controls>
+				<source src = "bucket.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Toy Car.
+		</p>
+		<audio controls>
+				<source src = "truck.ogg"
+				type="audio/ogg">				
+		</audio>
+</body>
+
+</html>

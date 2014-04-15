@@ -1,0 +1,425 @@
+<!--
+Intel's 24 hour Hackathon for Good
+April 5th, 2014
+Arizona
+
+Overall Topic: Create a program that helps with early childhood education.
+
+Program Goal: To educate children ages 0-4 on their basic alphabet letters through phonographic and visual
+(Level2)
+
+Coded by: 
+Esteban Flores
+Francisco Medina
+Justin Savage
+Michael (Sheng) Wang
+email bugs/questions to:
+michaelw998@yahoo.com
+michaelw998@berkeley.edu
+
+Images and Sound Clips found by:
+Jacob Gonzales
+Francisco Medina
+
+Copyright (c) 2014
+
+Free for educational, non-profit use
+-->
+
+<!doctype html>
+<html>
+<!-- --->
+	<body>
+		<canvas id="myCanvas" width="800" height="480" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousedown", clicked);
+			
+			var curscreen = "menu";
+			
+			<!-- Declaring images for  program -->
+			var levelselect = new Image();
+			levelselect.src = "levelselect.jpg";
+			
+			var level1btn = new Image(); 
+			level1btn.src = "number1.jpg";			
+			
+			var level2btn = new Image();
+			level2btn.src = "number2.jpg";
+			
+			var levels = new Image();
+			levels.src = "Levels.jpg"
+			
+			var leftarrow = new Image();
+			leftarrow.src = "leftarrow.jpg";
+			
+			var rightarrow = new Image();
+			rightarrow.src = "rightarrow.jpg";
+			
+			<!-- Declaring the letters -->
+			var bgImage = new Image();
+			bgImage.src="A.png";
+	
+			var bgImageA = new Image();
+			bgImageA.src="A.png";
+		
+			var bgImageB = new Image();
+			bgImageB.src="B.png";
+		
+			var bgImageC = new Image();
+			bgImageC.src="C.png";
+
+			var bgImageD = new Image();
+			bgImageD.src="D.png";
+
+			var bgImageE = new Image();
+			bgImageE.src="E.png";
+
+			var bgImageF = new Image();
+			bgImageF.src="F.png";
+
+			var bgImageG = new Image();
+			bgImageG.src="G.png";
+
+			var bgImageH = new Image();
+			bgImageH.src="H.png";
+
+			var bgImageI = new Image();
+			bgImageI.src="I.png";
+
+			var bgImageJ = new Image();
+			bgImageJ.src="J.png";
+
+			var bgImageK = new Image();
+			bgImageK.src="K.png";
+
+			var bgImageL = new Image();
+			bgImageL.src="L.png";
+
+			var bgImageM = new Image();
+			bgImageM.src="M.png";
+
+			var bgImageN = new Image();
+			bgImageN.src="N.png";
+
+			var bgImageO = new Image();
+			bgImageO.src="O.png";
+
+			var bgImageP = new Image();
+			bgImageP.src="P.png";
+
+			var bgImageQ = new Image();
+			bgImageQ.src="Q.png";
+
+			var bgImageR = new Image();
+			bgImageR.src="R.png";
+
+			var bgImageS = new Image();
+			bgImageS.src="S.png";
+
+			var bgImageT = new Image();
+			bgImageT.src="T.png";		
+
+			var bgImageU = new Image();
+			bgImageU.src="U.png";
+
+			var bgImageV = new Image();
+			bgImageV.src="V.png";
+
+			var bgImageW = new Image();
+			bgImageW.src="W.png";
+
+			var bgImageX = new Image();
+			bgImageX.src="X.png";
+
+			var bgImageY = new Image();
+			bgImageY.src="Y.png";		
+
+			var bgImageZ = new Image();
+			bgImageZ.src="Z.png";	
+			
+			<!-- Declaring audio files -->
+			var audioa = new Audio();
+			audioa.src = "A.mp3";
+		
+			var audiob = new Audio();
+			audiob.src = "B.mp3";
+
+			var audioc = new Audio();
+			audioc.src = "C.mp3";		
+		
+			var audiod = new Audio();
+			audiod.src = "D.mp3";	
+
+			var audioe = new Audio();
+			audioe.src = "E.mp3";		
+		
+			var audiof = new Audio();
+			audiof.src = "F.mp3";		
+		
+			var audiog = new Audio();
+			audiog.src = "G.mp3";		
+		
+			var audioh = new Audio();
+			audioh.src = "H.mp3";		
+		
+			var audioi = new Audio();
+			audioi.src = "I.mp3";		
+		
+			var audioj = new Audio();
+			audioj.src = "J.mp3";		
+		
+			var audiok = new Audio();
+			audiok.src = "K.mp3";		
+		
+			var audiol = new Audio();
+			audiol.src = "L.mp3";		
+		
+			var audiom = new Audio();
+			audiom.src = "M.mp3";		
+		
+			var audion = new Audio();
+			audion.src = "N.mp3";		
+		
+			var audioo = new Audio();
+			audioo.src = "O.mp3";			
+		
+			var audiop = new Audio();
+			audiop.src = "P.mp3";			
+		
+			var audioq = new Audio();
+			audioq.src = "Q.mp3";			
+		
+			var audior = new Audio();
+			audior.src = "R.mp3";			
+		
+			var audios = new Audio();
+			audios.src = "S.mp3";			
+		
+			var audiot = new Audio();
+			audiot.src = "T.mp3";			
+		
+			var audiou = new Audio();
+			audiou.src = "U.mp3";			
+		
+			var audiov = new Audio();
+			audiov.src = "V.mp3";			
+		
+			var audiow = new Audio();
+			audiow.src = "W.mp3";
+		
+			var audiox = new Audio();
+			audiox.src = "X.mp3";			
+		
+			var audioy = new Audio();
+			audioy.src = "Y.mp3";			
+		
+			var audioz = new Audio();
+			audioz.src = "Z.mp3";	
+			
+			function draw()
+			{
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				switch(curscreen)
+				{
+					case "menu":
+					<!-- draws the file with x coordinate, y coordinate
+						ctx.drawImage(levelselect,240,0);
+						ctx.drawImage(level1btn,260,170);
+						ctx.drawImage(level2btn,400,170);
+					break;
+					case "level1":
+						<!-- ctx.drawImage(levelselect,240,240); -->
+						ctx.drawImage(levels,0,0);
+						ctx.drawImage(leftarrow,0,200);
+						ctx.drawImage(rightarrow,660,200);
+						ctx.drawImage(bgImage,225,75);
+					break;
+				}
+			}
+			
+			function clicked(e)
+			{
+				console.log(e);
+				
+				var x = e.offsetX;
+				var y = e.offsetY;
+				
+				switch(curscreen)
+				{
+					case "menu":
+						if(x >= 260 && x <= 260 + level1btn.width && y >= 170 && y <= 170 + level1btn.height)
+						{
+							curscreen = "level1";
+						}
+						<!-- else if(x >= 400 && x <= 400 + level2btn.width && y >= 170 && y <= 170 + level2btn.height)
+						<!-- {
+						<!--	curscreen = "level2";
+						<!-- }
+					break;
+					case "level1":
+						if(x >= 0 && x <= 0 + levels.width && y >= 0 && y <= 0 + levels.height)
+						{
+							curscreen = "menu";
+						}
+						else if(x >= 0 && x <= 0 + leftarrow.width && y >= 200 && y <= 200 + leftarrow.height)
+						{
+							NextLetter();
+						}
+						else if(x >= 660 && x <= 660 + rightarrow.width && y >= 200 && y <= 200 + rightarrow.height)
+						{
+							NextLetter();
+						}
+					break;
+				}
+			}
+			
+			function newBackground()
+			{
+				switch(randomLetter)
+				{	
+					case 1: 	//Background Letter A
+						bgImage = bgImageA;
+						audioa.play();
+						break;
+						
+					case 2: 	//Background Letter B
+						bgImage = bgImageB;
+						audiob.play();
+						break;
+
+					case 3: 	//Background Letter C
+						bgImage = bgImageC;
+						audioc.play();
+						break;	
+						
+					case 4: 	//Background Letter D
+						bgImage = bgImageD;
+						audiod.play();
+						break;	
+
+					case 5: 	//Background Letter E
+						bgImage = bgImageE;
+						audioe.play();
+						break;
+						
+					case 6: 	//Background Letter F
+						bgImage = bgImageF;
+						audiof.play();
+						break;
+
+					case 7: 	//Background Letter G
+						bgImage = bgImageG;
+						audiog.play();
+						break;	
+						
+					case 8: 	//Background Letter H
+						bgImage = bgImageH;
+						audioh.play();
+						break;	
+					
+					case 9: 	//Background Letter I
+						bgImage = bgImageI;
+						audioi.play();
+						break;
+						
+					case 10: 	//Background Letter J
+						bgImage = bgImageJ;
+						audioj.play();
+						break;
+
+					case 11: 	//Background Letter K
+						bgImage = bgImageK;
+						audiok.play();
+						break;	
+						
+					case 12: 	//Background Letter L
+						bgImage = bgImageL;
+						audiol.play();
+						break;	
+					
+					case 13: 	//Background Letter M
+						bgImage = bgImageM;
+						audiom.play();
+						break;
+						
+					case 14: 	//Background Letter N
+						bgImage = bgImageN;
+						audion.play();
+						break;
+
+					case 15: 	//Background Letter O
+						bgImage = bgImageO;
+						audioo.play();
+						break;	
+						
+					case 16: 	//Background Letter P
+						bgImage = bgImageP;
+						audiop.play();
+						break;	
+						
+					case 17: 	//Background Letter Q
+						bgImage = bgImageQ;
+						audioq.play();
+						break;
+						
+					case 18: 	//Background Letter R
+						bgImage = bgImageR;
+						audior.play();
+						break;
+
+					case 19: 	//Background Letter S
+						bgImage = bgImageS;
+						audios.play();
+						break;	
+						
+					case 20: 	//Background Letter T
+						bgImage = bgImageT;
+						audiot.play();
+						break;	
+					
+					case 21: 	//Background Letter U
+						bgImage = bgImageU;
+						audiou.play();
+						break;
+						
+					case 22: 	//Background Letter V
+						bgImage = bgImageV;
+						audiov.play();
+						break;
+
+					case 23: 	//Background Letter W
+						bgImage = bgImageW;
+						audiow.play();
+						break;	
+						
+					case 24: 	//Background Letter X
+						bgImage = bgImageX;
+						audiox.play();
+						break;	
+
+					case 25: 	//Background Letter Y
+						bgImage = bgImageY;
+						audioy.play();
+						break;	
+						
+					case 26: 	//Background Letter Z
+						bgImage = bgImageZ;
+						audioz.play();
+						break;
+				}
+		}
+		
+			function NextLetter()
+			{
+				randomLetter = Math.floor(Math.random()*27)+1;
+				randomScreen1 = Math.floor(Math.random()*4)+1;
+				randomScreen2 = Math.floor(Math.random()*4)+1;
+				newBackground();
+			}
+
+			var drawtimer = setInterval(draw, 1000);
+		</script>
+	</body>
+</html>

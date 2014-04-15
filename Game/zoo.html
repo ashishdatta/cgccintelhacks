@@ -1,0 +1,315 @@
+<!doctype HTML>
+<html>
+<title>Zoo Game</title>
+<body>
+<canvas id="myCanvas" width="800" height="480" style="border:1px solid black"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext('2d');
+			canvas.addEventListener("mousedown", clicked);
+			canvas.addEventListener("mousemove", moved);
+			canvas.addEventListener("mouseup", released);
+			
+			
+			var bg = new Image();
+			bg.src = "zoo.png"
+
+			
+			
+			var wordInArray = 0;
+			//wordInArray = Math.floor(Math.random()*3);
+			var condition1 = false;
+			var condition2 = false;
+			var condition3 = false;
+			var condition4 = false;
+			var condition5 = false;
+			var condition6 = false;			
+			
+			var isclicked = 0;
+			var itemsFound = 0;
+			var zooImage=new Array("Elephant","Monkey","Tiger","Zebra","Peacock","kangaroo");
+
+			var image1 = new Image();
+			var imgX = 454;
+			var imgY = 6;
+			var imgXD = 454;
+			var imgYD = 6;
+			image1.w = 150;
+			image1.h = 150;
+			image1.src="elephant.png";
+			
+			var image2= new Image();
+			var img2X = 200;
+			var img2Y = 80;
+			var img2XD = 200;
+			var img2YD = 80;
+			image2.w = 70;
+			image2.h = 70;
+			image2.src="monkey.png";
+			
+			var image3= new Image();
+			var img3X = 730;
+			var img3Y = 150;			
+			var img3XD = 730;
+			var img3YD = 150;
+			image3.w = 90;
+			image3.h = 90;
+			image3.src="tiger.png";
+			
+			var image4= new Image();
+			var img4X = 511;
+			var img4Y = 274;			
+			var img4XD = 511;
+			var img4YD = 274;
+			image4.w = 100;
+			image4.h = 100;
+			image4.src="zebra.png";
+			
+			var image5= new Image();
+			var img5X = 294;
+			var img5Y = 394;			
+			var img5XD = 294;
+			var img5YD = 394;
+			image5.w = 75;
+			image5.h = 75;
+			image5.src="peacock.png";
+						
+			var image6= new Image();
+			var img6X = 2;
+			var img6Y = 280;			
+			var img6XD = 2;
+			var img6YD = 280;
+			image6.w = 130;
+			image6.h = 100;
+			image6.src="kangaroo.png";
+			
+
+			var offX = 0;
+			var offY = 0;
+
+			function draw(){
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.drawImage(bg,0,0,canvas.width,canvas.height);
+				ctx.drawImage(image1,imgX,imgY,image1.w,image1.h);
+				ctx.drawImage(image2,img2X,img2Y,image2.w,image2.h);
+				ctx.drawImage(image3,img3X,img3Y,image3.w,image3.h);		
+				ctx.drawImage(image4,img4X,img4Y,image4.w,image4.h);
+				ctx.drawImage(image5,img5X,img5Y,image5.w,image5.h);				
+				ctx.drawImage(image6,img6X,img6Y,image6.w,image6.h);				
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.font = "24px Helvetica";
+				ctx.textAlign = "left";
+				ctx.textBaseline = "top"
+				ctx.fillText("Animals in their place: " + itemsFound,15,15);	
+				ctx.fillText("Please place the animals in the right area.",260,450);
+				
+			if(finalCondition==true){
+				ctx.fillText("Congratulations you get a cookie!",194,432);}
+			}
+			
+				var finalCondition = false;
+				if(condition1==true&&condition2==true&&condition3==true&&condition4==true&&
+				condition5==true&&condition6==true)
+				{
+				finalCondition = true;
+				}
+				
+
+
+			function game(){
+			}
+
+			function clicked(e){
+				var x = e.offsetX;
+				var y = e.offsetY;
+					if(x >= imgX && x <= imgX + image1.w &&
+					y >= imgY && y <= imgY + image1.h){
+					isclicked = 1;
+					offX = x - imgX;
+					offY = y - imgY;
+				}   else if(x >= img2X && x <= img2X + image2.w &&
+					y >= img2Y && y <= img2Y + image2.h){
+					isclicked = 2;
+					offX = x - img2X;
+					offY = y - img2Y;
+				}    else if(x >= img3X && x <= img3X + image3.w &&
+					y >= img3Y && y <= img3Y + image3.h){
+					isclicked = 3
+					offX = x - img3X;
+					offY = y - img3Y;
+				}     else if(x >= img4X && x <= img4X + image4.w &&
+					y >= img4Y && y <= img4Y + image4.h){
+					isclicked = 4
+					offX = x - img4X;
+					offY = y - img4Y;
+				}     else if(x >= img5X && x <= img5X + image5.w &&
+					y >= img5Y && y <= img5Y + image5.h){
+					isclicked = 5
+					offX = x - img5X;
+					offY = y - img5Y;
+				}  
+				     else if(x >= img6X && x <= img6X + image6.w &&
+					y >= img6Y && y <= img6Y + image6.h){
+					isclicked = 6
+					offX = x - img6X;
+					offY = y - img6Y;
+				}  
+			}
+			
+			
+			
+			
+			function moved(e){
+				if(isclicked == 1){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					imgX = x - offX;
+					imgY = y - offY;
+				}
+				if(isclicked == 2){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img2X = x - offX;
+					img2Y = y - offY;
+				}				
+				if(isclicked == 3){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img3X = x - offX;
+					img3Y = y - offY;
+				}
+				if(isclicked == 4){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img4X = x - offX;
+					img4Y = y - offY;
+				}
+				if(isclicked == 5){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img5X = x - offX;
+					img5Y = y - offY;
+					}
+				if(isclicked == 6){
+					var x = e.offsetX;
+					var y = e.offsetY;
+					img6X = x - offX;
+					img6Y = y - offY;
+					}
+			}
+			function released(e){
+				var clickedValue = isclicked;
+				isclicked = 0;
+				var x = e.offsetX;
+				var y = e.offsetY;
+				console.log(x+","+y);
+				//Elephant","Monkey","Tiger","Zebra","Peacock","kangaroo"
+				if(x>=42&&x<=164&&y>=63&&y<=252)
+				{
+					if(clickedValue == 1)
+					{
+						itemsFound++;
+						condition1 = true;
+					}
+				}
+				if(x>=139&&x<=260&&y>=278&&y<=468)
+				{
+					if(clickedValue == 2)
+					{
+						itemsFound++;
+						condition2 = true;						
+					}
+				}				
+				if(x>=601&&x<=718&&y>=15&&y<=205)
+				{
+					if(clickedValue == 3)
+					{
+						itemsFound++;		
+						condition3 = true;						
+					}
+				}
+				if(x>=637&&x<=758&&y>=257&&y<=447)
+				{
+					if(clickedValue == 4)
+					{
+						itemsFound++;
+						condition4 = true;						
+					}
+				}
+				if(x>=417&&x<=539&&y>=241&&y<=432)
+				{
+					if(clickedValue == 5)
+					{
+						itemsFound++;	
+						condition5 = true;						
+					}
+				}
+				if(x>=302&&x<=423&&y>=7&&y<=198)
+				{
+					if(clickedValue == 6)
+					{
+						itemsFound++;
+						condition6 = true;						
+					}
+				}
+
+				
+				}
+			
+			function score(e){			
+				var x = e.offsetX;
+				var y = e.offsetY;
+				
+			
+			}
+
+			var drawtimer = setInterval(draw, 1000/30);
+			var gametimer = setInterval(game, 1000/10);
+			
+
+
+		</script>
+		<br><br>
+		<a href="file:///C:/Users/IUEE/Desktop/Game/bedroomGame.html">Bedroom</a>
+		<a href="file:///C:/Users/IUEE/Desktop/Game/sandboxgame.html">Sandbox</a>
+		<a href="file:///C:/Users/IUEE/Desktop/Game/treehousegame.html">Treehouse</a>
+				<br><br>
+		<p>
+			Elephant
+		</p>
+		
+		<audio controls>
+				<source src = "elephant.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Monkey 
+		</p>
+		<audio controls>
+				<source src = "monkey.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Tiger.
+		</p>
+		<audio controls>
+				<source src = "tiger.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Zebra.
+		</p>
+		<audio controls>
+				<source src = "zebra.ogg"
+				type="audio/ogg">				
+		</audio>
+		<p>
+			Peacock.
+		</p>
+		<audio controls>
+				<source src = "peacock.ogg"
+				type="audio/ogg">				
+		</audio>
+</body>
+
+</html>

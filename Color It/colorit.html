@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<body>
+		
+			<header>
+			<h1> Welcome To Color-It! Choose the correct color<h1>
+			<header>
+		
+		<title>Color It!</title>
+			<canvas id="myCanvas" width="900" height="500" style="border:5px solid black"></canvas>
+			
+			<script>
+			
+			var canvas=document.getElementById('myCanvas');
+			var context=canvas.getContext('2d');
+			
+			canvas.addEventListener("mousedown", clicked);
+			audio= document.createElement("audio");
+			audio.id = "audio"
+			audio.src = "ChaChing.mp3";
+			
+			
+			var audio = new Audio("audio");
+			audio.id = "audio";
+			audio.src = "chaching.mp3";
+			
+			var audio1 = new Audio("audio1");
+			audio1.id = "audio1";
+			audio1.src = "Buzzer.mp3";
+			
+			var mouseDown = 0;
+			document.body.onmousedown = function() { 
+			  ++mouseDown;
+			}
+			document.body.onmouseup = function() {
+			  --mouseDown;
+			}
+			
+			var checkcd = 0;
+			var checkxcd = 0;
+			var whitecd = 0;
+			
+			var panelbtn = new Image();
+			panelbtn.src = "panel.jpg";
+			
+			var nextbtn = new Image();
+			nextbtn.src = "nextarrow.png";
+			
+			var checkmark = new Image();
+			checkmark.src = "checkmark.jpg";
+			
+			var xmark = new Image();
+			xmark.src = "xmark.jpg";
+	
+			var newImg = ["apple1.png","banana2.png","carrot1.png","dolphin 1.png","elephant1.png","frog 1.png","goldfish1.png",
+			"heart2.png","iglu2.png","jet2.png","kangaroo2.png","lemon2.png","Money2.png","Nut2.png","owl2.png","pig2.png","quarter2.png","Rock 2.png","Sun 2.png","Tree 2.png","Umbrella2.png","Violin2.png","Watermelon 2.png","Xray 2.png","Zebra 2.png"];
+			
+			var oldImg = ["apple.png","banana.png","carrot.png","dolphin.png","elephant.png","frog.png","goldfish.png","heart.png",
+			"iglu.jpg","jet.png","kangaroo.png","lemon.png","Money.png",
+			"Nut.png","owl.png","pig.png","quarter.png","Rock.png","Sun.png","Tree 1.png","Umbrella.png","Violin1.png","Watermelon.png","Xray 1.png","Zebra 1.png"];
+			
+			var answers = ["red", "yellow", "orange", "grey", "grey","green", "orange", "red", "blue", "grey" ,"brown", 
+			"yellow", "green", "brown","brown","pink", "grey", "grey", "yellow", "green" , "black", "brown", "red", "black", "black" ]; 
+			
+			var Img = [];
+			var Img1 = [];
+			
+			var currentIndex = 0;
+			
+			
+			for(var i = 0; i < 25; i++)
+			{
+			
+			Img[i] = new Image();
+			Img[i].src = newImg[i];
+			Img1[i] = new Image();
+			Img1[i].src = oldImg[i];
+			
+			}
+			var target = Img1[currentIndex];
+			
+			context.fillStyle="white";
+			context.fillRect(0,0,900,500);
+			
+			function draw(){
+				context.clearRect(0,0, canvas.width, canvas.height);
+				context.drawImage(panelbtn, 680, 0);
+				context.drawImage(nextbtn, 1, 395,100,100);
+				context.drawImage(target, 205, 105, 280, 280);
+				
+				if( checkcd > 0)
+				{
+					context.drawImage(checkmark, 202, 102,330,330);
+					checkcd--;
+				}
+				
+				if( checkxcd > 0)
+				{
+					context.drawImage(xmark, 202, 102, 330,330);
+					checkxcd--;
+				}
+				
+				//if( whitecd > 0)
+				//{
+					//context.fillRect(680, 0, 110, 100);
+					//context.fillStyle="white";
+					//whitecd--;
+			//}
+		}
+			function clicked(e){
+			console.log(e);
+				var x = e.offsetX;
+				var y = e.offsetY;
+				if (x >= 1 && x <= 100 && y >= 400 && y <= 500){
+			currentIndex++;
+			target = Img1[currentIndex];
+				if(currentIndex == 25)
+				{	
+					currentIndex = 0;
+				}
+			
+			
+			}
+			switch(answers[currentIndex]){
+				
+				case "red": 
+						if(currentIndex == 0 && x >= 680 && x <= 790 && y >= 0 && y <= 110){
+						checkcd = 10;
+						context.fillRect(680, 0, 110, 110);
+						whitecd = 10;
+						
+						console.log(whitecd);
+						
+						target = Img[currentIndex];
+						audio.play();
+						
+					} 
+					else if(currentIndex == 7 && x >= 680 && x <= 790 && y >= 0 && y <= 110){
+						checkcd = 10;
+						whitecd = 10;				
+						target = Img[currentIndex];
+						audio.play();
+					
+					}	
+					else if(currentIndex == 22 && x >= 680 && x <= 790 && y >= 0 && y <= 110){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+					}	
+					else if(x >= 680 ) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+			break;
+				
+				case "yellow": 
+						if(currentIndex == 1 && x >= 680 && x <= 790 && y >= 220 && y <= 330){
+						checkcd = 10;
+						context.fillRect(790, 0, 110, 105);
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					} 
+					else if(currentIndex == 11 && x >= 680 && x <= 790 && y >= 220 && y <= 330){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+						}
+						
+						else if(currentIndex == 18 && x >= 680 && x <= 790 && y >= 220 && y <= 330){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+						
+					}else if(x >= 680) {
+						checkxcd = 10;
+						audio1.play();
+					}
+				
+			break;
+				
+				case "orange": 
+						if(currentIndex == 2 && x >= 680 && x <= 790 && y >= 390 && y <= 500){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+						}
+						else if(currentIndex == 6 && x >= 680 && x <= 790 && y >= 390 && y <= 500) {
+						checkcd = 10;
+						whitecd = 10;
+						target = Img[currentIndex];
+						audio.play();
+					
+					} else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+				
+			break;
+				
+				case "grey": 
+						if(currentIndex == 3 && x >= 790 && x <= 900 && y >= 220 && y <= 330){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+						
+					} 
+					else if(currentIndex == 4 && x >= 790 && x <= 900 && y >= 220 && y <= 330) {
+						checkcd = 10;
+						whitecd = 10;
+						target = Img[currentIndex];
+						audio.play();
+				
+					}
+					else if(currentIndex == 9 && x >= 790 && x <= 900 && y >= 220 && y <= 330) {
+						checkcd = 10;
+						whitecd = 10;
+						target = Img[currentIndex];
+						audio.play();
+				
+					}
+					else if(currentIndex == 16 && x >= 790 && x <= 900 && y >= 220 && y <= 330) {
+						checkcd = 10;
+						whitecd = 10;
+						target = Img[currentIndex];
+						audio.play();
+					
+					}
+					else if(currentIndex == 17 && x >= 790 && x <= 900 && y >= 220 && y <= 330) {
+						checkcd = 10;
+						whitecd = 10;
+						target = Img[currentIndex];
+						audio.play();
+					
+					}
+					
+					else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+			break;
+				
+				case "green": 
+						if(currentIndex == 5 && x >= 790 && x <= 900 && y >= 0 && y <= 110){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+					} 
+					else if(currentIndex == 12 && x >= 790 && x <= 900 && y >= 0 && y <= 110){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+				
+						
+					}
+					else if(currentIndex == 19 && x >= 790 && x <= 900 && y >= 0 && y <= 110){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+					}
+					else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+				
+			break;
+				
+				case "blue": 
+						if(currentIndex == 8 && x >= 680 && x <= 790 && y >= 280 && y <= 390){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						 audio.play();
+					
+					} else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+				
+			break;
+				
+				case "brown": 
+						if(currentIndex == 10 && x >= 680 && x <= 790 && y >= 110 && y <= 220){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+					}
+						else if(currentIndex == 13 && x >= 680 && x <= 790 && y >= 110 && y <= 220){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+				
+					}					
+					else if(currentIndex == 14 && x >= 680 && x <= 790 && y >= 110 && y <= 220){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+					}					
+					
+					else if(currentIndex == 21 && x >= 680 && x <= 790 && y >= 110 && y <= 220){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+						 
+					}					
+					else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+				
+			break;
+				
+				case "black": 
+						if(currentIndex == 20 && x >= 790 && x <= 900 && y >= 280 && y <= 390){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						 audio.play();
+	
+						
+					}
+					
+					else if(currentIndex == 23 && x >= 790 && x <= 900 && y >= 280 && y <= 390){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					
+					}					
+				
+					else if(currentIndex == 24 && x >= 790 && x <= 900 && y >= 280 && y <= 390){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+					}					
+					
+					else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}
+				
+				
+				
+			break;
+					
+				case "pink":
+					if(currentIndex == 15 && x >= 790 && x <= 900 && y >= 110 && y <= 220){
+						checkcd = 10;
+						whitecd = 10;					
+						target = Img[currentIndex];
+						audio.play();
+				
+					}					
+					else if(x >= 680) {
+						checkxcd = 10;
+						whitecd = 10;
+						audio1.play();
+					}		
+				}		
+			}
+		
+			var drawtimer = setInterval(draw, 1000/30);
+			
+			
+			</script>
+	</head>
+</html>
